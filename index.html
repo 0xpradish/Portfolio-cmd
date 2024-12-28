@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostgreSQL Portfolio</title>
+    <link rel="stylesheet" href="./static/styles/style.css ">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crafty+Girls&family=Pangolin&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <h3 id = "name">Pradish Pranam</h3>
+        
+        </div>
+    </div>
+    <div class="terminal">
+        <div class="welcome-line">
+            <span class="psql-text">Welcome to Pranam Shell v1.0.0</span>
+            <div class="social-icons">
+                <a class="social-icon" href="//www.linkedin.com/in/pradishpranam/" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a class="social-icon" href="https://github.com/0xpradish" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <a class="social-icon" href="Resume.pdf" download="Pradish_Pranam_Resume.pdf">
+                    <i class="fa-solid fa-circle-down"></i>
+                </a>
+                </div>
+        </div>
+        <div class="command-line"></div>
+        <div id="output"></div>
+        <div class="input-line">
+            <span class="prompt">usr/pradish></span>
+            <input type="text" id="userInput" autofocus placeholder="Type 'psql' to enter shell">
+        </div>
+    </div>
+    <div class="footer">
+        Made with <span class="heart">🤍</span> by Pradish Pranam
+    </div>
+    <div class="popup-overlay" id="responsibilityPopup">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closePopup()">&times;</span>
+            <div id="popupContent"></div>
+        </div>
+    </div>
+
+    <script src="./static/js/main.js"></script>
+</body>
+</html>

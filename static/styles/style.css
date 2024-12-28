@@ -1,0 +1,372 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url('../fonts/JMH\ Typewriter-Bold.ttf') format('truetype');
+    font-weight: normal; /* Optional */
+    font-style: normal; /* Optional */
+}
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #121212;
+    color: #ffffff;
+    min-height: 100vh; /* Use min-height instead of height */
+    padding: 20px 0; /* Add padding top and bottom */
+    align-items: center; /* Center horizontally */
+    box-sizing: border-box;
+}
+
+/* .header {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 24px;
+    color: #4CAF50;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: relative; 
+} */
+
+.header {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 24px;
+    color: #4CAF50;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    margin-bottom: 10px; /* Add some space between header and terminal */
+}
+.welcome-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+/* Regular command line style */
+    .command-line {
+        display: flex;
+        align-items: flex-start;  /* Align to the left */
+        justify-content: flex-start;  /* Align to the left */
+        width: 100%;
+        margin-bottom: 2px;
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 20px;
+    }
+
+
+.psql-text {
+    color: #ff9800;
+    
+}
+
+.social-icon {
+    color: white;
+    text-decoration: none;
+    font-size: 23px;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.social-icon:hover {
+    transform: scale(1.2);
+}
+
+#name {
+    font-size: 25px;
+    /* font-family: 'Courier New', Courier, monospace; */
+    /* font-family: "Crafty Girls", serif;
+     */
+     font-family: 'CustomFont';
+    font-weight: 400;
+    font-style: normal;
+    background-color: transparent;
+    /* color: #E1B36C; */
+    color: white;
+    font-style: normal;
+    
+    text-shadow: 1px 1px 2px rgba(225, 179, 108, 0.6), /* Slight glow */
+                 0 0 4px rgba(225, 179, 108, 0.4);   /* Soft spread */
+     animation: shake 2s infinite;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    50% { transform: translateX(2px); }
+    75% { transform: translateX(-2px); }
+    100% { transform: translateX(0); }
+}
+
+
+/* .terminal {
+    background-color: #1e1e1e;
+    display: flex;
+    justify-content: center;
+    width: 70vw;
+    border-radius: 5px;
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin: 0 20px; 
+    border: 2px solid rgb(40, 38, 38); 
+    box-shadow: 5px 5px 5px rgb(40, 38, 38);
+    overflow: hidden; 
+    position: relative;
+  
+    font-family: 'CustomFont';
+} */
+
+.terminal {
+    background-color: #1e1e1e;
+    width: 80vw;
+    height: 80vh; /* Set a fixed height */
+    max-height: 800px; /* Optional: set a maximum height */
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin: 20px auto; /* Center horizontally and add vertical margin */
+    border: 2px solid rgb(40, 38, 38); 
+    box-shadow: 5px 5px 5px rgb(40, 38, 38);
+    overflow: hidden;
+    position: relative;
+    font-family: 'CustomFont';
+}
+
+#output {
+    
+    font-size: 14px;
+    white-space: pre-wrap;
+    overflow-y: auto;
+    height: 80%;
+    color: #ffffff;
+    background-color: #1e1e1e;
+    border-radius: 5px;
+    padding: 20px;
+    
+}
+
+/* Blinking cursor */
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background-color: #4CAF50;
+    animation: blink 0.8s steps(2, start) infinite;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+}
+
+@keyframes blink {
+    0%, 50% { background-color: #4CAF50; }
+    50.01%, 100% { background-color: transparent; }
+}
+
+/* Styling the scrollbar for the terminal output */
+#output::-webkit-scrollbar {
+    width: 3px; /* Width of the scrollbar */
+}
+
+#output::-webkit-scrollbar-track {
+    background: transparent; /* Background of the scrollbar track */
+}
+
+#output::-webkit-scrollbar-thumb {
+    background: #888; /* Gray color for the scrollbar thumb */
+    border-radius: 4px; /* Smooth round edges for the scrollbar thumb */
+}
+
+#output::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Darker gray when hovered */
+}
+
+/* For browsers that support scrollbar-color */
+#output {
+    scrollbar-color: #2f2f2f transparent; /* Thumb color and track color */
+    
+}
+
+
+.prompt {
+    color: #4CAF50;
+    margin-right: 5px;
+}
+
+
+
+
+.input-line {
+    display: flex;
+    align-items: center;
+}
+
+#userInput {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+}
+
+.command {
+    color: #ffffff;
+}
+
+.result {
+    color: #03a9f4;
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+}
+
+.footer {
+    text-align: center;
+    padding: 10px 0;
+    color: #4CAF50;
+    font-size: 14px;
+    display: none;
+}
+
+.heart {
+    color: #ff4444;
+    animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+
+
+
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.popup-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 5px;
+    border: 2px solid rgb(40, 38, 38);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    max-width: 80%;
+    max-height: 80vh;
+    overflow-y: auto;
+    color: white;
+    font-family: 'CustomFont';
+}
+
+.close-popup {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    color: #4CAF50;
+    font-size: 20px;
+}
+
+.responsibility-link {
+    color: #4CAF50;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .social-icons {
+        display: none;
+    }
+
+    .header {
+        padding: 5px; /* Reduce padding */
+        font-size: 1rem; /* Decrease font size */
+    }
+
+    #name {
+        margin: 0; 
+    }
+
+    .terminal {
+        height: calc(85vh - 50px); 
+        overflow-x: auto; 
+        padding-bottom: 20px; /* Add padding at the bottom */
+        margin-bottom: 0; /* Remove extra external space below the terminal */
+    }
+
+    body {
+        overflow-x: auto; /* Allow horizontal scrolling for the entire page */
+    }
+    
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .popup-content {
+        width: 90%; 
+        height: 40%;
+        padding: 10px; 
+        background: #1e1e1e; 
+        border-radius: 8px; 
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+        overflow-y: auto;
+        font-size: 15px;
+    }
+
+    .close-popup {
+        font-size: 1.5rem; 
+        cursor: pointer;
+        position: absolute; 
+        top: 10px;
+        right: 10px;
+    }
+}
