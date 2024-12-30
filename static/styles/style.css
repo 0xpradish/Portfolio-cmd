@@ -312,6 +312,10 @@ body {
     text-decoration: underline;
 }
 
+.linkedin-mobile{
+    display: none;
+}
+
 
 
 @media screen and (max-width: 768px) {
@@ -320,8 +324,8 @@ body {
     }
 
     .header {
-        padding: 5px; /* Reduce padding */
-        font-size: 1rem; /* Decrease font size */
+        padding: 5px;
+        font-size: 1rem;
     }
 
     #name {
@@ -331,21 +335,22 @@ body {
     .terminal {
         height: calc(85vh - 50px); 
         overflow-x: auto; 
-        padding-bottom: 20px; /* Add padding at the bottom */
-        margin-bottom: 0; /* Remove extra external space below the terminal */
+        padding-bottom: 20px; 
+        margin-bottom: 0;
     }
 
     body {
-        overflow-x: auto; /* Allow horizontal scrolling for the entire page */
+        overflow-x: auto;
     }
     
     .popup-overlay {
+        /* display: none !important; */
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+        background-color: rgba(0, 0, 0, 0.8); 
         display: flex;
         align-items: center;
         justify-content: center;
@@ -354,19 +359,35 @@ body {
     .popup-content {
         width: 90%; 
         height: 40%;
-        padding: 10px; 
-        background: #1e1e1e; 
-        border-radius: 8px; 
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+        padding: 10px;
+        background: #1e1e1e;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         overflow-y: auto;
         font-size: 15px;
     }
 
     .close-popup {
-        font-size: 1.5rem; 
+        font-size: 1.5rem;
         cursor: pointer;
-        position: absolute; 
+        position: absolute;
         top: 10px;
         right: 10px;
     }
+
+    .welcome-line {
+        display: flex;
+        align-items: center;
+    }
+
+    .linkedin-mobile {
+        margin-left: auto; /* Move it to the right */
+        align-self: center; /* Vertical alignment */
+        color: white;
+        font-size: 1.2rem;
+        text-decoration: none;
+        display: block !important; /* Force visibility */
+    color: white;
+    }
 }
+
