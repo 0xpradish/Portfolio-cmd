@@ -41,7 +41,7 @@ const experienceResponsibilities = {
     "Mindgraph Technologies - Data Engineer Intern": [
         "Deployed an end-to-end solution for a leading Philippines airline, aggregating a 360° view of customer journeys.",
         "Built data pipelines from scratch, optimizing aggregation from 10+ sources and automating the ETL process.",
-        "Developed a high-performance backend powering a dashboard used daily by 1000+ executives."
+        "Developed a high-performance backend powering a dashboard used by top exec"
     ],
     "Kyungpook National University - Research Intern": [
         "Conducted research on 'Self-Referential Weight Matrix', exploring novel neural network architectures for efficient data representation",
