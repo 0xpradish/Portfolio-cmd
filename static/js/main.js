@@ -1,4 +1,5 @@
 let inPsqlMode = false;
+let currentDatabase = null;
 
 const databases = {
     portfolio: {
@@ -9,11 +10,12 @@ const databases = {
         ],
         skills: [
             ['Type', 'Skills'],
-            ['Programming', 'Python'],
-            ['Big Data', 'SQL • Spark • Pyspark • Hadoop • Hive • Pandas'],
-            ['AWS', 'Glue • S3 • DynamoDB • Lambda • Step Fn • Redshift • EC2'],
+            ['Programming/Scripting', 'Python, Scala, SQL, Linux Shell Scripting'],
+            ['Distributed Computation', 'Apache Hadoop, Apache Spark, Apache Flink'],
+            ['Data Warehouses & Databases', 'Hive, AWS Redshift, Snowflake, MySQL,PostgreSQL, Cassandra, MongoDB'],
+            ['Workflow & Messaging', 'Apache Airflow, Apache Kafka'],
             ['Web Frameworks', 'FastAPI'],
-            ['Add. Technologies', 'Linux • Airflow • Kafka • MySQL • Git • Github • Docker']
+            ['AWS', 'S3, EMR, Lambda, CloudWatch, DynamoDB, Redshift, Athena, Glue, SNS, SQS, Kinesis,Step Functions'],
         ],
         certificates: [
             ['Certification'],
@@ -21,21 +23,28 @@ const databases = {
             ['Microsoft Certified: Azure Fund.'],
             ['HackerRank - SQL (Advanced)']
         ],
-        experience: null
+        experience: null,
+        projects: [
+            ['Title','Description'],
+            ['Bitcoin Real-Time Data Streaming Pipeline','A real-time data pipeline streaming Bitcoin prices.'],
+            ['Milkopolis','milkPolis is a fun 2D Pygame adventure game.'],
+        ],
     }
 };
 
 const experienceResponsibilities = {
     "Mindgraph Technologies - Data Engineer": [
-        "Optimized the Customer 360 pipeline with Python, Spark, and AWS, reducing runtime from 8 to 5 hours",
-        "Developed APIs with FastAPI for dashboards, enhancing insights for over 150M customers"
+        "Developed incremental loading patterns for aviation data management, achieving significant improvement in batch processing efficiency",
+        "Led a team of 2 and collaborated with business stakeholders to ensure on-time delivery and regular updates",
+        "Would receive an impossible task from the client, enter a brief existential crisis, cry in binary, magically find a workaround at 2 AM, and implement it with tears, caffeine, and questionable sanity.(sarcasm)"
     ],
     "Mindgraph Technologies - Data Engineer Intern": [
-        "Optimized the Customer 360 pipeline with Python, Spark, and AWS, reducing runtime from 8 to 5 hours",
-        "Developed APIs with FastAPI for dashboards, enhancing insights for over 150M customers"
+        "Deployed an end-to-end solution for a leading Philippines airline, aggregating a 360° view of customer journeys.",
+        "Built data pipelines from scratch, optimizing aggregation from 10+ sources and automating the ETL process.",
+        "Developed a high-performance backend powering a dashboard used daily by 1000+ executives."
     ],
     "Kyungpook National University - Research Intern": [
-        "Researched 'Self-Referential Weight Matrix' for innovative neural network architectures",
+        "Conducted research on 'Self-Referential Weight Matrix', exploring novel neural network architectures for efficient data representation",
         "Explored advancements in smart contracts for consumer electronics"
     ]
 };
@@ -93,7 +102,6 @@ function generateExperienceTable() {
     databases.portfolio.experience = table;
 }
 
-
 function generateTableFromArray(data) {
     let table = '<table style="border-collapse: collapse; table-layout: auto; max-width: 300px; ">';
     table += '<thead><tr>';
@@ -113,8 +121,6 @@ function generateTableFromArray(data) {
     table += '</tbody></table>';
     return table;
 }
-
-
 
 function showResponsibilities(role) {
     const popup = document.getElementById('responsibilityPopup');
@@ -159,7 +165,21 @@ function typeOutput(element, text, callback) {
     type();
 }
 
+function updatePrompt() {
+    const promptSpan = document.querySelector('.prompt');
+    if (promptSpan) {
+        if (!inPsqlMode) {
+            promptSpan.textContent = 'usr/pradish>';
+        } else if (currentDatabase) {
+            promptSpan.textContent = `${currentDatabase}=#`;
+        } else {
+            promptSpan.textContent = 'psql>';
+        }
+    }
+}
+
 const commands = {
+    // Database connection commands
     'show databases': () => {
         const data = [
             ['Schema', 'Name'],
@@ -168,36 +188,81 @@ const commands = {
         return generateTableFromArray(data);
     },
 
+    'use portfolio': () => {
+        if (!inPsqlMode) {
+            return "ERROR: You must be in psql mode to use this command";
+        }
+        currentDatabase = 'portfolio';
+        updatePrompt();
+        return `Connected to database "portfolio"`;
+    },
+
+    // Table commands (require database connection)
     'show tables': () => {
+        if (!currentDatabase) {
+            return "ERROR: No database selected. Use 'use portfolio' to connect to a database first.";
+        }
         const data = [
             ['Schema', 'Name', 'Type', 'Owner'],
             ['public', 'education', 'table', 'pradish'],
             ['public', 'skills', 'table', 'pradish'],
             ['public', 'experience', 'table', 'pradish'],
-            ['public', 'certificates', 'table', 'pradish']
+            ['public', 'certificates', 'table', 'pradish'],
+            ['public', 'projects', 'table', 'pradish']
         ];
         return generateTableFromArray(data);
     },
 
-    'select * from education': () => generateTableFromArray(databases.portfolio.education),
-    'select * from skills': () => generateTableFromArray(databases.portfolio.skills),
-    'select * from certificates': () => generateTableFromArray(databases.portfolio.certificates),
+    'select * from education': () => {
+        if (!currentDatabase) {
+            return "ERROR: No database selected. Use 'use portfolio' to connect to a database first.";
+        }
+        return generateTableFromArray(databases.portfolio.education);
+    },
+
+    'select * from skills': () => {
+        if (!currentDatabase) {
+            return "ERROR: No database selected. Use 'use portfolio' to connect to a database first.";
+        }
+        return generateTableFromArray(databases.portfolio.skills);
+    },
+
+    'select * from certificates': () => {
+        if (!currentDatabase) {
+            return "ERROR: No database selected. Use 'use portfolio' to connect to a database first.";
+        }
+        return generateTableFromArray(databases.portfolio.certificates);
+    },
+
+    'select * from projects': () => {
+        if (!currentDatabase) {
+            return "ERROR: No database selected. Use 'use portfolio' to connect to a database first.";
+        }
+        return generateTableFromArray(databases.portfolio.projects);
+    },
+
     'select * from experience': () => {
+        if (!currentDatabase) {
+            return "ERROR: No database selected. Use 'use portfolio' to connect to a database first.";
+        }
         generateExperienceTable();
         return databases.portfolio.experience;
     },
-
+    
     help: () => `Available commands:
 \\h or help : Show help
 \\l or show databases : List all databases
-\\dt or show tables : List tables
+use [database_name] : Connect to a database
+\\dt or show tables : List tables (requires database connection)
 \\q : Quit psql
 clear : Clear screen
-select * from [table_name] : View table contents`,
+select * from [table_name] : View table contents (requires database connection)`,
 
+    // Shortcuts
     '\\h': () => commands.help(),
     '\\l': () => commands['show databases'](),
     '\\dt': () => commands['show tables'](),
+    
     clear: () => {
         document.getElementById('output').innerHTML = '';
         return '';
@@ -213,19 +278,20 @@ userInput.addEventListener('keypress', function (e) {
 
         const commandLine = document.createElement('div');
         commandLine.className = 'command-line';
-        commandLine.innerHTML = `<span class="prompt">${inPsqlMode ? 'psql>' : 'usr/pradish>'}</span> ${command}`;
+        const currentPrompt = inPsqlMode ? (currentDatabase ? `${currentDatabase}=#` : 'psql>') : 'usr/pradish>';
+        commandLine.innerHTML = `<span class="prompt">${currentPrompt}</span> ${command}`;
         output.appendChild(commandLine);
 
         if (!inPsqlMode) {
             if (command === 'psql') {
                 inPsqlMode = true;
-                userInput.placeholder = "Type 'help' for available commands";
+                currentDatabase = null;
+                userInput.placeholder = "Type 'help' for available commands or 'use portfolio' to connect to database";
 
                 const resultDiv = document.createElement('div');
                 resultDiv.className = 'result';
-                typeOutput(resultDiv, 'Connected to PranamSQL shell.\nType \\q to exit.', () => {
-                    const promptSpan = document.querySelector('.prompt');
-                    if (promptSpan) promptSpan.textContent = 'psql>';
+                typeOutput(resultDiv, 'Connected to PranamSQL shell.\nType \\q to exit.\nType "use portfolio" to connect to the portfolio database.', () => {
+                    updatePrompt();
                 });
                 output.appendChild(resultDiv);
             } else {
@@ -237,13 +303,13 @@ userInput.addEventListener('keypress', function (e) {
         } else {
             if (command === '\\q') {
                 inPsqlMode = false;
+                currentDatabase = null;
                 userInput.placeholder = "Type 'psql' to enter shell";
 
                 const resultDiv = document.createElement('div');
                 resultDiv.className = 'result';
                 typeOutput(resultDiv, 'Disconnected from PranamSQL shell.', () => {
-                    const promptSpan = document.querySelector('.prompt');
-                    if (promptSpan) promptSpan.textContent = 'usr/pradish>';
+                    updatePrompt();
                 });
                 output.appendChild(resultDiv);
             } else if (command === 'clear') {
@@ -254,7 +320,12 @@ userInput.addEventListener('keypress', function (e) {
                 const commandResult = commands[command];
                 if (commandResult) {
                     const result = commandResult();
-                    resultDiv.innerHTML = result;
+                    // Check if result contains HTML table
+                    if (result.includes('<table')) {
+                        resultDiv.innerHTML = result;
+                    } else {
+                        typeOutput(resultDiv, result);
+                    }
                 } else {
                     typeOutput(resultDiv, "ERROR: Invalid command. Type 'help' for available commands");
                 }
