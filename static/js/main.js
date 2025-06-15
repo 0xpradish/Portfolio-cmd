@@ -286,7 +286,7 @@ userInput.addEventListener('keypress', function (e) {
             if (command === 'psql') {
                 inPsqlMode = true;
                 currentDatabase = null;
-                userInput.placeholder = "Type 'help' for available commands or 'use portfolio' to connect to database";
+                userInput.placeholder = "Type 'help' for available commands";
 
                 const resultDiv = document.createElement('div');
                 resultDiv.className = 'result';
